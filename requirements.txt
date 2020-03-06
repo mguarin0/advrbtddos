@@ -1,0 +1,9 @@
+tensorflow==2.1.0
+tensorboard==2.1.0
+tensorboardX==2.0
+tqdm==4.36.1
+scikit-learn==0.22.1
+PyYAML==5.2
+pytorch-memlab==0.0.4
+matplotlib
+scikit-image
