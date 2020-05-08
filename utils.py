@@ -19,9 +19,14 @@ import torchvision.transforms as transforms
 import pytorch_memlab
 
 
-def get_device():
-  if torch.cuda.is_available():
-    device = 'cuda'
+def get_device(use_gpu: bool,
+               gpu_id:int=None,
+               *args, **kwargs):
+  if use_gpu and torch.cuda.is_available():
+    if gpu_id is not None:
+      device = f'cuda:{gpu_id}'
+    else:
+      device = 'cuda'
   else:
     device = 'cpu'
   return device
