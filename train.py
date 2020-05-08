@@ -111,13 +111,6 @@ def run_trainer(model: models,
     is smaller than eps, the update is ignored. Default: 1e-8.
   """
 
-  # model step up
-  model = models.resnet34(pretrained=False)
-  num_output = model.fc.in_features
-  # TODO confirm that final activation and loss working properly
-  model.fc = nn.Sequential(nn.Linear(num_output, num_classes),
-               nn.LogSoftmax())
-
   # optimizer and lr scheduler
   optimizer = optim.SGD(model.parameters(), lr=lr)
   lr_scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='max',
