@@ -1,6 +1,7 @@
 __author__ = 'Michael Guarino (mguarin0)'
 
 import argparse
+import torch.nn as nn
 import options
 from utils import get_device, get_dataloader, to_device
 from models import (get_torchvision_models,
@@ -13,7 +14,6 @@ if __name__=='__main__':
 
   # add run_type cli args
   parser = argparse.ArgumentParser() 
-  options.run_type(parser)
 
   # add base cli args
   options.base_training_cfgs(parser)
@@ -27,11 +27,11 @@ if __name__=='__main__':
 
   args['device'] = get_device(**args)
   args['data_loader'] = {f'{dataset_type}': get_dataloader(dataset_type=dataset_type, **args)
-                            for dataset_type in ['test', 'val', 'train']}
+                            for dataset_type in ['val', 'train']}
   args['model'] = get_torchvision_models(**args)
   args['optimizer'] = get_optimizer(**args)
   args['lr_scheduler'] = get_lr_scheduler(**args)
-  args['attackers'] = get_attackers(attack_type='infpgd', **args)
+  args['attackers'] = get_attackers(loss_fn=nn.CrossEntropyLoss(), cfg=args, **args)
   args['criterion'] = get_criterion(**args)
   args['to_device'] = partial(to_device, args['device'])
   args['to_cpu'] = partial(to_device, 'cpu')

@@ -190,16 +190,16 @@ def adv_training_cfg(parser: ArgumentParser):
      'for adversary.')
   train_adv_periodic_ops_grp.add_argument('--run_adv_every',
     type=int,
-    default=16,
-    help='run adversary every n steps during training train (default: 16)')
+    default=3,
+    help='run adversary every n steps during training train (default: 3)')
 
 
   adv_cfg_grp = parser.add_argument_group('adv_cfg',
      'arguments for configurating '
      'of adversary.')
   adv_cfg_grp.add_argument('--attack_type',
-                           nargs='+',
-                           default=['linfpgd'],
+#                          nargs='+',
+                           default='linfpgd',
                            choices=['gsa',
                                     'linfpgd', 'singlepixel',
                                     'jacobiansaliencymap'],
@@ -218,9 +218,8 @@ def adv_attk_params(parser: ArgumentParser):
 
   adv_linfpgd_cfg_grp = parser.add_argument_group('adv_linfpgd_cfg')
   adv_linfpgd_cfg_grp.add_argument('--adv_linfpgd_eps', type=float, default=0.3, help='max distortion')
-  adv_linfpgd_cfg_grp.add_argument('--adv_linfpgd_nb_iter', type=int, default=1, help='max distortion')
-  adv_linfpgd_cfg_grp.add_argument('--adv_linfpgd_eps_iter', type=float,
-                                    default=0.01, help='attack step size')
+  adv_linfpgd_cfg_grp.add_argument('--adv_linfpgd_nb_iter', type=int, default=40, help='max distortion')
+  adv_linfpgd_cfg_grp.add_argument('--adv_linfpgd_eps_iter', type=float, default=0.01, help='attack step size')
   adv_linfpgd_cfg_grp.add_argument('--adv_linfpgd_rand_int', type=bool, default=True, help='rand initialize adv')
   adv_linfpgd_cfg_grp.add_argument('--adv_linfpgd_clip_min', type=float, default=0.0, help='min val')
   adv_linfpgd_cfg_grp.add_argument('--adv_linfpgd_clip_max', type=float, default=1.0, help='max val')

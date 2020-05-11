@@ -12,13 +12,9 @@ import torch.nn.functional as F
 import torchvision.models as models
 
 from ignite.engine import Engine, Events
-from ignite.metrics import (Accuracy, Loss,
-                            RunningAverage,
-                            Precision, Recall)
-from ignite.handlers import (Checkpoint, DiskSaver,
-                             global_step_from_engine)
+from ignite.metrics import RunningAverage
+from ignite.handlers import Checkpoint, DiskSaver
 from ignite.contrib.handlers import ProgressBar
-from ignite.contrib.handlers.tensorboard_logger import *
 
 from advertorch.context import ctx_noparamgrad_and_eval
 
@@ -43,7 +39,8 @@ def run_trainer(data_loader: dict,
         resume_from: str,
         to_device: object,
         to_cpu: object,
-        attackers: dict=None,
+        attackers: object=None,
+        train_adv_periodic_ops: int=None,
         *args,
         **kwargs
 ):
@@ -57,6 +54,8 @@ def run_trainer(data_loader: dict,
     model.train()
     optimizer.zero_grad()
     x, y = map(lambda _: to_device(_), batch)
+    if (train_adv_periodic_ops is not None) and (engine.state.iteration % train_adv_periodic_ops == 0):
+      x = attackers.perturb(x, y)
     y_pred = model(x)
     loss = criterion(y_pred, y)
     loss.backward()

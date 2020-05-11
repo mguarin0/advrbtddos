@@ -44,11 +44,10 @@ def get_attackers(attack_type: str, cfg: dict, loss_fn: nn, model: models, *args
                                    clip_min=cfg['adv_gsa_clip_min'],
                                    clip_max=cfg['adv_gsa_clip_max'],
                                    targeted=cfg['adv_gsa_targeted'])
-    attackers['gsa'] = adversary
+#   attackers['gsa'] = adversary
   if attack_type=='linfpgd':
     from advertorch.attacks import LinfPGDAttack
     adversary = LinfPGDAttack(model,
-#                  loss_fn=nn.CrossEntropyLoss(reduction="sum"),
                    loss_fn=loss_fn,
                    eps=cfg['adv_linfpgd_eps'],
                    nb_iter=cfg['adv_linfpgd_nb_iter'],
@@ -57,7 +56,7 @@ def get_attackers(attack_type: str, cfg: dict, loss_fn: nn, model: models, *args
                    clip_min=cfg['adv_linfpgd_clip_min'],
                    clip_max=cfg['adv_linfpgd_clip_max'],
                    targeted=cfg['adv_linfpgd_targeted'])
-    attackers['linfpgd'] = adversary
+#   attackers['linfpgd'] = adversary
   if attack_type=='singlepixel':
     # https://arxiv.org/pdf/1612.06299.pdf
     from advertorch.attacks import SinglePixelAttack
@@ -67,7 +66,7 @@ def get_attackers(attack_type: str, cfg: dict, loss_fn: nn, model: models, *args
                                   clip_min=cfg['adv_singlepixel_clip_min'],
                                   clip_max=cfg['adv_singlepixel_clip_max'],
                                   targeted=cfg['adv_singlepixel_targeted'])
-    attackers['singlepixel'] = adversary
+#   attackers['singlepixel'] = adversary
   if attack_type=='jacobiansaliencymap':
     #  https://arxiv.org/abs/1511.07528v1
     from advertorch.attacks import JacobianSaliencyMapAttack
@@ -77,8 +76,8 @@ def get_attackers(attack_type: str, cfg: dict, loss_fn: nn, model: models, *args
                                           clip_max=cfg['adv_jacobiansaliencymap_clip_max'],
                                           gamma=cfg['adv_jacobiansaliencymap_gamma'],
                                           theta=cfg['adv_jacobiansaliencymap_theta'])
-    attackers['jacobiansaliencymap'] = adversary
-  return attackers
+#   attackers['jacobiansaliencymap'] = adversary
+  return adversary 
 
 
 def get_optimizer(model: models,
