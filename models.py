@@ -27,7 +27,6 @@ def get_torchvision_models(model_type: str,
     raise('no model selected')
 
   num_output = model.fc.in_features
-  # TODO confirm that final activation and loss working properly
   model.fc = nn.Sequential(nn.Linear(num_output, num_classes),
                nn.LogSoftmax())
 

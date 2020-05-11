@@ -2,12 +2,6 @@ __author__ = 'Michael Guarino (mguarin0)'
 
 from argparse import ArgumentParser
 
-def run_type(parser: ArgumentParser):
-  run_type_grp = parser.add_argument_group('run_type')
-  run_type_grp.add_argument('run_type',
-                            type=str,
-                            choices=['train_no_adv', 'train_adv'],
-                            help='run_type of script') 
 
 def base_training_cfgs(parser: ArgumentParser):
 
@@ -18,8 +12,8 @@ def base_training_cfgs(parser: ArgumentParser):
      'operations.')
   train_periodic_ops_grp.add_argument('--train_epochs',
     type=int,
-    default=50,
-    help='number of epochs to train (default: 50)')
+    default=20,
+    help='number of epochs to train (default: 20)')
   train_periodic_ops_grp.add_argument('--log_training_progress_every',
     type=int,
     default=128,
