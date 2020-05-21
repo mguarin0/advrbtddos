@@ -29,52 +29,52 @@ def base_training_cfgs(parser: ArgumentParser):
 
 
   model_cfg_grp = parser.add_argument_group('model_cfg',
-     'configurations for model.')
+    'configurations for model.')
   model_cfg_grp.add_argument('--model_type',
-         type=str,
-         default='resnet34',
-         help='select model type')
+    type=str,
+    default='resnet34',
+    help='select model type')
   model_cfg_grp.add_argument('--loss_type',
-         type=str,
-         default='nn_ce',
-         help='loss to use')
+    type=str,
+    default='nn_ce',
+    help='loss to use')
 
 
 
   cuda_cfg_grp = parser.add_argument_group('model_cfg',
-     'configurations for model.')
+    'configurations for model.')
   cuda_cfg_grp.add_argument('--use_gpu',
-         type=bool,
-         default=True,
-         help='use gpu')
+    type=bool,
+    default=True,
+    help='use gpu')
   cuda_cfg_grp.add_argument('--gpu_id',
-         type=int,
-         default=None,
-         help='gpu id to use')
+    type=int,
+    default=None,
+    help='gpu id to use')
 
 
   dataset_cfg_grp = parser.add_argument_group('dataset_cfg',
-     'configurations for dataset.')
+    'configurations for dataset.')
   dataset_cfg_grp.add_argument('--height',
-     type=int,
-     default=400,
-     help='height of image')
+    type=int,
+    default=400,
+    help='height of image')
   dataset_cfg_grp.add_argument('--width',
-     type=int,
-     default=400,
-     help='width of image')
-    dataset_cfg_grp.add_argument('--batch_size',
-     type=int,
-     default=64,
-     help='input batch size used for train, val, test (default: 64)')
+    type=int,
+    default=400,
+    help='width of image')
+  dataset_cfg_grp.add_argument('--batch_size',
+    type=int,
+    default=64,
+    help='input batch size used for train, val, test (default: 64)')
   dataset_cfg_grp.add_argument('--shuffle',
-     type=bool,
-     default=True,
-     help='shuffle dataset (default: True)')
+    type=bool,
+    default=True,
+    help='shuffle dataset (default: True)')
   dataset_cfg_grp.add_argument('--num_classes',
-     type=int,
-     default=2,
-     help='number classes')
+    type=int,
+    default=2,
+    help='number classes')
 
 
 
@@ -104,62 +104,62 @@ def base_training_cfgs(parser: ArgumentParser):
     'hyperparams for network and '
     'optim strategy.')
   hyperparams_grp.add_argument('--lr',
-   type=float,
-   default=1e-4,
-   help='learning rate')
+    type=float,
+    default=1e-4,
+    help='learning rate')
   hyperparams_grp.add_argument('--eps',
-   type=float,
-   default=1e-8,
-   help='term added to denominator to improve numerical stability')
+    type=float,
+    default=1e-8,
+    help='term added to denominator to improve numerical stability')
   hyperparams_grp.add_argument('--factor',
-   type=float,
-   default=0.1,
-   help='Factor by which the learning rate will be reduced. new_lr = lr * factor. Default: 0.1')
+    type=float,
+    default=0.1,
+    help='Factor by which the learning rate will be reduced. new_lr = lr * factor. Default: 0.1')
   hyperparams_grp.add_argument('--patience',
-   type=int,
-   default=10,
-   help='Number of epochs with no improvement after which learning rate will be reduced. '
-    'For example, if patience = 2, then we will ignore the first 2 epochs with no improvement, '
-    'and will only decrease the LR after the 3rd epoch if the loss still hasn’t improved then. Default: 10. ')
+    type=int,
+    default=10,
+    help='Number of epochs with no improvement after which learning rate will be reduced. '
+         'For example, if patience = 2, then we will ignore the first 2 epochs with no improvement, '
+         'and will only decrease the LR after the 3rd epoch if the loss still hasn’t improved then. Default: 10. ')
   hyperparams_grp.add_argument('--verbose',
-   type=bool,
-   default=False,
-   help='If True, prints a message to stdout for each update. Default: False.')
+    type=bool,
+    default=False,
+    help='If True, prints a message to stdout for each update. Default: False.')
   hyperparams_grp.add_argument('--threshold',
-   type=float,
-   default=1e-4,
-   help='Threshold for measuring the new optimum, to only focus on significant changes. Default: 1e-4.')
+    type=float,
+    default=1e-4,
+    help='Threshold for measuring the new optimum, to only focus on significant changes. Default: 1e-4.')
   hyperparams_grp.add_argument('--threshold_mode',
-   type=str,
-   default='rel',
-   choices=['rel', 'max'],
-   help='One of rel, abs. In rel mode, dynamic_threshold '
-    '= best * ( 1 + threshold ) in ‘max’ mode or best * ( 1 - threshold ) '
-    'in min mode. In abs mode, dynamic_threshold = best + threshold in max '
-    'mode or best - threshold in min mode. Default: ‘rel’.')
+    type=str,
+    default='rel',
+    choices=['rel', 'max'],
+    help='One of rel, abs. In rel mode, dynamic_threshold '
+         '= best * ( 1 + threshold ) in ‘max’ mode or best * ( 1 - threshold ) '
+         'in min mode. In abs mode, dynamic_threshold = best + threshold in max '
+         'mode or best - threshold in min mode. Default: ‘rel’.')
   hyperparams_grp.add_argument('--cooldown',
-   type=int,
-   default=0,
-   help='Number of epochs to wait before resuming normal operation after lr has been reduced. Default: 0.')
+    type=int,
+    default=0,
+    help='Number of epochs to wait before resuming normal operation after lr has been reduced. Default: 0.')
   hyperparams_grp.add_argument('--min_lr',
-   type=float,
-   default=0,
-   help='A scalar or a list of scalars. A lower bound on the learning '
-    'rate of all param groups or each group respectively. Default: 0. ')
+    type=float,
+    default=0,
+    help='A scalar or a list of scalars. A lower bound on the learning '
+         'rate of all param groups or each group respectively. Default: 0. ')
   hyperparams_grp.add_argument('--eps_scheduler',
-   type=float,
-   default=1e-8,
-   help='Minimal decay applied to lr. If the difference between new and old lr '
-    'is smaller than eps, the update is ignored. Default: 1e-8. ')
+    type=float,
+    default=1e-8,
+    help='Minimal decay applied to lr. If the difference between new and old lr '
+         'is smaller than eps, the update is ignored. Default: 1e-8. ')
 
 
 def adv_training_cfg(parser: ArgumentParser):
 
 
   train_adv_periodic_ops_grp = parser.add_argument_group('train_adv_periodic_ops',
-     'arguments for configurating '
-     'periodic operations '
-     'for adversary.')
+    'arguments for configurating '
+    'periodic operations '
+    'for adversary.')
   train_adv_periodic_ops_grp.add_argument('--run_adv_every',
     type=int,
     default=3,
@@ -167,8 +167,8 @@ def adv_training_cfg(parser: ArgumentParser):
 
 
   adv_cfg_grp = parser.add_argument_group('adv_cfg',
-     'arguments for configurating '
-     'of adversary.')
+    'arguments for configurating '
+    'of adversary.')
   adv_cfg_grp.add_argument('--attack_type',
 #                          nargs='+',
                            default='linfpgd',
