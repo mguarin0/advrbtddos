@@ -26,24 +26,23 @@ from utils import (create_summary_writer,
 
 
 def run_trainer(data_loader: dict,
-        model: models,
-        optimizer: optim,
-        lr_scheduler: optim.lr_scheduler,
-        criterion: nn,
-        train_epochs: int,
-        log_training_progress_every: int,
-        log_val_progress_every: int,
-        checkpoint_every: int,
-        tb_summaries_dir: str,
-        chkpt_dir: str,
-        resume_from: str,
-        to_device: object,
-        to_cpu: object,
-        attackers: object=None,
-        train_adv_periodic_ops: int=None,
-        *args,
-        **kwargs
-):
+  model: models,
+  optimizer: optim,
+  lr_scheduler: optim.lr_scheduler,
+  criterion: nn,
+  train_epochs: int,
+  log_training_progress_every: int,
+  log_val_progress_every: int,
+  checkpoint_every: int,
+  tb_summaries_dir: str,
+  chkpt_dir: str,
+  resume_from: str,
+  to_device: object,
+  to_cpu: object,
+  attackers: object=None,
+  train_adv_periodic_ops: int=None,
+  *args,
+  **kwargs):
 
 
   def mk_lr_step(loss):
@@ -78,7 +77,7 @@ def run_trainer(data_loader: dict,
     return np.mean(to_cpu(loss, convert_to_np=True))
 
 
-  # set up ignite engines 
+  # set up ignite engines
   trainer = Engine(train_step)
   train_eval = Engine(eval_step)
   val_eval = Engine(eval_step)
@@ -148,11 +147,11 @@ def run_trainer(data_loader: dict,
                    n_saved=3, filename_prefix='best',
                    score_function=chkpt_score_func,
                    score_name='val_loss')
-  
+
   # register events
   trainer.add_event_handler(Events.ITERATION_COMPLETED(every=checkpoint_every),
                             training_checkpoint)
-  
+
   # if resuming
   if resume_from and os.path.exists(resume_from):
     print(f'resume model from: {resume_from}')
