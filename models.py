@@ -13,22 +13,15 @@ def get_torchvision_models(model_type: str,
   """
 
   model = None
-  if model_type == 'resnet18':
-    model = models.resnet18(pretrained=False)
   if model_type == 'resnet34':
     model = models.resnet34(pretrained=False)
+    num_output = model.fc.in_features
+    model.fc = nn.Sequential(nn.Linear(num_output, num_classes), nn.LogSoftmax())
   if model_type == 'mobilenet_v2':
     model = models.mobilenet_v2(pretrained=False)
-  if model_type == 'inception_v3':
-    model = models.inception_v3(pretrained=False)
-  if model_type == 'vgg16':
-    model= models.vgg16(pretrained=False)
+    model.classifier[1] = nn.Sequential(nn.Linear(model.last_channel, num_classes), nn.LogSoftmax())
   if model is None:
     raise('no model selected')
-
-  num_output = model.fc.in_features
-  model.fc = nn.Sequential(nn.Linear(num_output, num_classes),
-               nn.LogSoftmax())
 
   return model
 

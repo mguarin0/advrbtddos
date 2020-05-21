@@ -84,12 +84,12 @@ def create_summary_writer(model: nn.Module,
   tensorboardX summary writer
   """
   writer = SummaryWriter(logdir=tb_summaries_dir)
-  data_loader_iter = iter(data_loader)
-  x, _ = next(data_loader_iter)
-  try:
-    writer.add_graph(model, x)
-  except Exception as e:
-    print("Failed to save model graph: {}".format(e))
+# data_loader_iter = iter(data_loader)
+# x, _ = next(data_loader_iter)
+# try:
+#   writer.add_graph(model, x)
+# except Exception as e:
+#   print("Failed to save model graph: {}".format(e))
   return writer
 
 

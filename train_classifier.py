@@ -12,7 +12,7 @@ from functools import partial
 if __name__=='__main__':
 
   # add run_type cli args
-  parser = argparse.ArgumentParser() 
+  parser = argparse.ArgumentParser()
 
   # add base cli args
   options.base_training_cfgs(parser)
