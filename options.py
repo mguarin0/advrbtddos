@@ -63,35 +63,7 @@ def base_training_cfgs(parser: ArgumentParser):
      type=int,
      default=400,
      help='width of image')
-  dataset_cfg_grp.add_argument('--mean_ch_1',
-     type=float,
-     default=0.5,
-     help='mean of channel 1')
-  dataset_cfg_grp.add_argument('--mean_ch_2',
-     type=float,
-     default=0.5,
-     help='mean of channel 2')
-  dataset_cfg_grp.add_argument('--mean_ch_3',
-     type=float,
-     default=0.5,
-     help='mean of channel 3')
-  dataset_cfg_grp.add_argument('--std_ch_1',
-     type=float,
-     default=0.5,
-     help='std of channel 1')
-  dataset_cfg_grp.add_argument('--std_ch_2',
-     type=float,
-     default=0.5,
-     help='std of channel 2')
-  dataset_cfg_grp.add_argument('--std_ch_3',
-     type=float,
-     default=0.5,
-     help='std of channel 3')
-  dataset_cfg_grp.add_argument('--rotation_amt',
-     type=int,
-     default=15,
-     help='amount to rotate')
-  dataset_cfg_grp.add_argument('--batch_size',
+    dataset_cfg_grp.add_argument('--batch_size',
      type=int,
      default=64,
      help='input batch size used for train, val, test (default: 64)')

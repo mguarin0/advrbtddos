@@ -5,7 +5,7 @@ import torchvision.models as models
 def get_torchvision_models(model_type: str,
                            num_classes: int, *args, **kwargs):
   """
-  select model type from torchvision or 
+  select model type from torchvision or
   modify this to add your model. Hard coding
   `pretrained=False` because we will never
   use the pretrained model provided by `torchvision`
@@ -37,14 +37,13 @@ def get_attackers(attack_type: str, cfg: dict, loss_fn: nn, model: models, *args
   attackers = {}
   if attack_type=='gsa':
     # https://arxiv.org/abs/1412.652
-    from advertorch.attacks import GradientSignAttack 
+    from advertorch.attacks import GradientSignAttack
     adversary = GradientSignAttack(model,
                                    loss_fn=loss_fn,
                                    eps=cfg['adv_gsa_eps'],
                                    clip_min=cfg['adv_gsa_clip_min'],
                                    clip_max=cfg['adv_gsa_clip_max'],
                                    targeted=cfg['adv_gsa_targeted'])
-#   attackers['gsa'] = adversary
   if attack_type=='linfpgd':
     from advertorch.attacks import LinfPGDAttack
     adversary = LinfPGDAttack(model,
@@ -56,7 +55,6 @@ def get_attackers(attack_type: str, cfg: dict, loss_fn: nn, model: models, *args
                    clip_min=cfg['adv_linfpgd_clip_min'],
                    clip_max=cfg['adv_linfpgd_clip_max'],
                    targeted=cfg['adv_linfpgd_targeted'])
-#   attackers['linfpgd'] = adversary
   if attack_type=='singlepixel':
     # https://arxiv.org/pdf/1612.06299.pdf
     from advertorch.attacks import SinglePixelAttack
@@ -66,7 +64,6 @@ def get_attackers(attack_type: str, cfg: dict, loss_fn: nn, model: models, *args
                                   clip_min=cfg['adv_singlepixel_clip_min'],
                                   clip_max=cfg['adv_singlepixel_clip_max'],
                                   targeted=cfg['adv_singlepixel_targeted'])
-#   attackers['singlepixel'] = adversary
   if attack_type=='jacobiansaliencymap':
     #  https://arxiv.org/abs/1511.07528v1
     from advertorch.attacks import JacobianSaliencyMapAttack
@@ -76,8 +73,7 @@ def get_attackers(attack_type: str, cfg: dict, loss_fn: nn, model: models, *args
                                           clip_max=cfg['adv_jacobiansaliencymap_clip_max'],
                                           gamma=cfg['adv_jacobiansaliencymap_gamma'],
                                           theta=cfg['adv_jacobiansaliencymap_theta'])
-#   attackers['jacobiansaliencymap'] = adversary
-  return adversary 
+  return adversary
 
 
 def get_optimizer(model: models,
