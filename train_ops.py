@@ -4,6 +4,7 @@ __author__ = 'Michael Guarino (mguarin0)'
 import os
 import pprint
 import numpy as np
+import random
 
 import torch
 from torch import nn
@@ -54,7 +55,8 @@ def run_trainer(data_loader: dict,
     optimizer.zero_grad()
     x, y = map(lambda _: to_device(_), batch)
     if (train_adv_periodic_ops is not None) and (engine.state.iteration % train_adv_periodic_ops == 0):
-      x = attackers.perturb(x, y)
+      random_attacker = random.choice(list(attackers))
+      x = attackers[random_attacker].perturb(x, y)
     y_pred = model(x)
     loss = criterion(y_pred, y)
     loss.backward()

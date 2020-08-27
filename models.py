@@ -28,7 +28,7 @@ def get_torchvision_models(model_type: str,
 
 def get_attackers(attack_type: str, cfg: dict, loss_fn: nn, model: models, *args, **kwargs):
   attackers = {}
-  if attack_type=='gsa':
+  if attack_type=='gsa' or attack_type=='all':
     # https://arxiv.org/abs/1412.652
     from advertorch.attacks import GradientSignAttack
     adversary = GradientSignAttack(model,
@@ -37,7 +37,8 @@ def get_attackers(attack_type: str, cfg: dict, loss_fn: nn, model: models, *args
                                    clip_min=cfg['adv_gsa_clip_min'],
                                    clip_max=cfg['adv_gsa_clip_max'],
                                    targeted=cfg['adv_gsa_targeted'])
-  if attack_type=='linfpgd':
+    attackers['gsa'] = adversary
+  if attack_type=='linfpgd' or attack_type=='all':
     from advertorch.attacks import LinfPGDAttack
     adversary = LinfPGDAttack(model,
                    loss_fn=loss_fn,
@@ -48,7 +49,8 @@ def get_attackers(attack_type: str, cfg: dict, loss_fn: nn, model: models, *args
                    clip_min=cfg['adv_linfpgd_clip_min'],
                    clip_max=cfg['adv_linfpgd_clip_max'],
                    targeted=cfg['adv_linfpgd_targeted'])
-  if attack_type=='singlepixel':
+    attackers['linfpgd'] = adversary
+  if attack_type=='singlepixel' or attack_type=='all':
     # https://arxiv.org/pdf/1612.06299.pdf
     from advertorch.attacks import SinglePixelAttack
     adversary = SinglePixelAttack(model,
@@ -57,6 +59,8 @@ def get_attackers(attack_type: str, cfg: dict, loss_fn: nn, model: models, *args
                                   clip_min=cfg['adv_singlepixel_clip_min'],
                                   clip_max=cfg['adv_singlepixel_clip_max'],
                                   targeted=cfg['adv_singlepixel_targeted'])
+    attackers['singlepixel'] = adversary
+# if attack_type=='jacobiansaliencymap' or attack_type=='all':
   if attack_type=='jacobiansaliencymap':
     #  https://arxiv.org/abs/1511.07528v1
     from advertorch.attacks import JacobianSaliencyMapAttack
@@ -66,7 +70,8 @@ def get_attackers(attack_type: str, cfg: dict, loss_fn: nn, model: models, *args
                                           clip_max=cfg['adv_jacobiansaliencymap_clip_max'],
                                           gamma=cfg['adv_jacobiansaliencymap_gamma'],
                                           theta=cfg['adv_jacobiansaliencymap_theta'])
-  return adversary
+    attackers['jacobiansaliencymap'] = adversary
+  return attackers
 
 
 def get_optimizer(model: models,

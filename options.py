@@ -172,7 +172,7 @@ def adv_training_cfg(parser: ArgumentParser):
   adv_cfg_grp.add_argument('--attack_type',
 #                          nargs='+',
                            default='linfpgd',
-                           choices=['gsa',
+                           choices=['all', 'gsa',
                                     'linfpgd', 'singlepixel',
                                     'jacobiansaliencymap'],
                            help='attack type to use during robust training '
