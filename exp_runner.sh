@@ -23,7 +23,7 @@ do
     do
         echo $model
         echo $idx
-        python train_classifier.py --model_type $model --dataset_root $dataset_path --chkpt_dir "${checkpoint_dir}/${idx}_${model}_no_adv" --tb_summaries_dir "${tb_summaries_dir}/${idx}_${model}_no_adv" --gpu_id 1
+        python train_classifier.py --model_type $model --dataset_root $dataset_path --chkpt_dir "${checkpoint_dir}/${idx}_${model}_no_adv" --tb_summaries_dir "${tb_summaries_dir}/${idx}_${model}_no_adv" --gpu_id ${gpu_id}
     done
 done
 
@@ -34,7 +34,7 @@ do
     do
         for idx in $(seq 1 $replica_num)
         do
-            python train_robust.py --model_type $model --attack_type $attack --dataset_root $dataset_path --chkpt_dir "${checkpoint_dir}/${idx}_${model}_${attack}" --tb_summaries_dir "${tb_summaries_dir}/${idx}_${model}_${attack}" --gpu_id 1
+            python train_robust.py --model_type $model --attack_type $attack --dataset_root $dataset_path --chkpt_dir "${checkpoint_dir}/${idx}_${model}_${attack}" --tb_summaries_dir "${tb_summaries_dir}/${idx}_${model}_${attack}" --gpu_id ${gpu_id}
         done
     done
 done
