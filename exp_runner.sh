@@ -1,8 +1,8 @@
 dataset_path=${1}
 checkpoint_dir=${2}
 tb_summaries_dir=${3}
-gpu_id=${4}
-replica_num=${5}
+gpu_id=${4:-1}
+replica_num=${5:-5}
 
 # make necessary dirs
 mkdir ${checkpoint_dir}
@@ -13,7 +13,7 @@ declare -a model_type=('mobilenet_v2' 'resnet34')
 declare -a attack_type=('linfpgd'
                         'gsa'
                         'singlepixel'
-                        'jacobiansaliencymap'
+                        'all'
                        )
 
 # train classifier with no adversary
