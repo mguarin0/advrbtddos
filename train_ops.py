@@ -68,6 +68,9 @@ def run_trainer(data_loader: dict,
     model.eval()
     with torch.no_grad():
       x, y = map(lambda _: to_device(_), batch)
+      if random.choice(range(2)) % 2 == 0:
+        random_attacker = random.choice(list(attackers))
+        x = attackers[random_attacker].perturb(x, y)
       y_pred = model(x)
       return y_pred, y
 
