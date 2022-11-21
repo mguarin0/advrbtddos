@@ -2,7 +2,7 @@ torch==1.5.0
 torchvision==0.6.0a0+82fd1c8
 advertorch==0.2.2
 pytorch-memlab==0.0.4
-tensorflow==2.1.0
+tensorflow==2.9.3
 tensorboard==2.1.0
 tensorboardX==2.0
 tqdm==4.36.1
